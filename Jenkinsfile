@@ -25,17 +25,6 @@ pipeline {
                 sh 'docker build -t $DOCKER_IMAGE:latest .'
             }
         }
-
-        stage('Run Docker Container') {
-      steps {
-        sh '''
-          docker stop varun1411/java_cicd || true
-          docker rm varun1411/java_cicd || true
-          docker run -d --name varun1411/java_cicd -p 3000:8080 varun1411/ci_cd_app
-        '''
-      }
-    }
-
         stage('Push to Docker Hub') {
             environment {
                 DOCKER_HUB_CREDENTIALS = credentials('dockerhub-creds')  // Jenkins Credentials ID
@@ -43,6 +32,18 @@ pipeline {
             steps {
                 sh 'echo $DOCKER_HUB_CREDENTIALS_PSW | docker login -u $DOCKER_HUB_CREDENTIALS_USR --password-stdin'
                 sh 'docker push $DOCKER_IMAGE:latest'
+            }
+        }
+        stage('Deploy Application') {
+            steps {
+                script {
+                    // Stop & remove container if it exists
+                    sh "docker stop $CONTAINER_NAME || true"
+                    sh "docker rm $CONTAINER_NAME || true"
+                    
+                    // Run the container
+                    sh "docker run -d --name $CONTAINER_NAME -p 3000:8080 $IMAGE_NAME"
+                }
             }
         }
     }
