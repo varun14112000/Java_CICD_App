@@ -29,9 +29,9 @@ pipeline {
         stage('Run Docker Container') {
       steps {
         sh '''
-          docker stop ci_cd_app_container || true
-          docker rm ci_cd_app_container || true
-          docker run -d --name ci_cd_app_container -p 3000:8080 varun1411/ci_cd_app
+          docker stop varun1411/java_cicd || true
+          docker rm varun1411/java_cicd || true
+          docker run -d --name varun1411/java_cicd -p 3000:8080 varun1411/ci_cd_app
         '''
       }
     }
