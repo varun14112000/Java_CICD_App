@@ -1,5 +1,5 @@
 pipeline {
-    agent any
+    agent {label 'Slave_A'}
 
     environment {
         DOCKER_IMAGE = 'varun1411/java-cicd-app'
