@@ -1,6 +1,8 @@
 pipeline {
     agent {label 'Slave_A'}
-
+    tools {
+        maven 'mymvn'
+    }
     environment {
         DOCKER_IMAGE = 'varun1411/java_cicd'
     }
