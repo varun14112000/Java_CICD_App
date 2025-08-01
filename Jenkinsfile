@@ -5,6 +5,7 @@ pipeline {
     }
     environment {
         DOCKER_IMAGE = 'varun1411/java_cicd'
+        CONTAINER_IMAGE = 'java_cicd_container'
     }
 
     stages {
