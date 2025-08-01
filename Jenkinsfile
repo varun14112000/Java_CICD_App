@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/varun14112000/Java_CICD_App.git'
+                git branch: 'main' , url: 'https://github.com/varun14112000/Java_CICD_App.git'
             }
         }
 
