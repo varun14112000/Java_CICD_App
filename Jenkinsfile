@@ -2,13 +2,13 @@ pipeline {
     agent {label 'Slave_A'}
 
     environment {
-        DOCKER_IMAGE = 'varun1411/java-cicd-app'
+        DOCKER_IMAGE = 'varun1411/java_cicd'
     }
 
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/yourusername/your-java-repo.git'
+                git 'https://github.com/varun14112000/Java_CICD_App.git'
             }
         }
 
@@ -26,7 +26,7 @@ pipeline {
 
         stage('Push to Docker Hub') {
             environment {
-                DOCKER_HUB_CREDENTIALS = credentials('docker-hub-creds')  // Jenkins Credentials ID
+                DOCKER_HUB_CREDENTIALS = credentials('dockerhub-creds')  // Jenkins Credentials ID
             }
             steps {
                 sh 'echo $DOCKER_HUB_CREDENTIALS_PSW | docker login -u $DOCKER_HUB_CREDENTIALS_USR --password-stdin'
