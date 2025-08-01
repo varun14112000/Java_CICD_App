@@ -26,6 +26,16 @@ pipeline {
             }
         }
 
+        stage('Run Docker Container') {
+      steps {
+        sh '''
+          docker stop ci_cd_app_container || true
+          docker rm ci_cd_app_container || true
+          docker run -d --name ci_cd_app_container -p 3000:8080 varun1411/ci_cd_app
+        '''
+      }
+    }
+
         stage('Push to Docker Hub') {
             environment {
                 DOCKER_HUB_CREDENTIALS = credentials('dockerhub-creds')  // Jenkins Credentials ID
