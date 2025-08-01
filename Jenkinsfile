@@ -38,6 +38,7 @@ pipeline {
         stage('Deploy Application') {
             steps {
                 script {
+                    def CONTAINER_NAME = "java_cicd_app_container"
                     // Stop & remove container if it exists
                     sh "docker stop $CONTAINER_NAME || true"
                     sh "docker rm $CONTAINER_NAME || true"
